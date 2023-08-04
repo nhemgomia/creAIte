@@ -11,10 +11,12 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 interface FreeCounterProps {
   apiLimitCount: number;
+  isPro: boolean;
 }
  
 const FreeCounter = ({
-  apiLimitCount
+  apiLimitCount = 0,
+  isPro = false
 }: FreeCounterProps) => {
   const proModal = useProModal();
   const [isMounted, setIsMounted] = useState(false);
@@ -22,6 +24,8 @@ const FreeCounter = ({
   useEffect(() => {
     setIsMounted(true);
   }, [])
+
+  if (!isMounted || isPro) return null;
 
   return ( 
     <div className="px-3">
