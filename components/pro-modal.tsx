@@ -1,5 +1,8 @@
 "use client";
 
+import axios from "axios";
+import { useState } from "react";
+
 import { 
   Dialog, 
   DialogContent, 
@@ -59,6 +62,20 @@ const tools = [
 
 export const ProModal = () => {
   const proModal = useProModal();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubscribe = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get("/api/stripe");
+
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.log(error, "STRIPE_CLIENT_ERROR");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -94,6 +111,8 @@ export const ProModal = () => {
           </DialogHeader>
           <DialogFooter>
             <Button
+              onClick={onSubscribe}
+              disabled={isLoading}
               size="lg"
               variant="premium"
               className="w-full"
