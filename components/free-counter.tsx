@@ -15,10 +15,10 @@ interface FreeCounterProps {
 const FreeCounter = ({
   apiLimitCount
 }: FreeCounterProps) => {
-  const [isMounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setIsMounted(true);
   }, [])
 
   return ( 
